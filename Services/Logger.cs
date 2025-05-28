@@ -38,6 +38,7 @@ namespace EnergySimulator.Services
                 double total = 0;
                 foreach (var item in dados) total += item.valor;
                 Console.WriteLine($"⚡ Total gerado: {total:F2} {unidade}");
+                
             }
 
             Console.WriteLine();

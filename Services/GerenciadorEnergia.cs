@@ -20,7 +20,7 @@ namespace EnergySimulator.Services
             _cidades = cidades;
             _usinas = usinas;
             _logger = logger;
-            _energiaArmazenada = 0;
+            _energiaArmazenada = 100;
         }
 
         public void ExecutarRodada()
@@ -70,7 +70,13 @@ namespace EnergySimulator.Services
             double totalGerado = _usinas.Sum(u => u.Geracao);
 
             _logger.LogLista("Geração das Usinas", _usinas.Select(u => (u.Nome, u.Geracao)).ToList(), "un");
-            _logger.Log($"⚡ Total gerado: {totalGerado:F2} un");
+
+            // Verifica se há crise energética
+            if (totalGerado < totalMetaCidades)
+            {
+                _logger.Log("🚨 CRISE ENERGÉTICA DETECTADA! A geração não é suficiente para suprir a demanda.");
+            }
+
 
             // ===========================
             // Distribuição de Energia
@@ -121,17 +127,24 @@ namespace EnergySimulator.Services
                 bool metaAtingida = energiaEntregue >= cidade.MetaEnergia;
                 fluxo.Add((cidade.Nome, cidade.MetaEnergia, energiaEntregue, metaAtingida));
 
+               if (veioDoArmazenamento > 0)
+                {
+                    _logger.Log($"📦 {cidade.Nome} recebeu {veioDoArmazenamento:F2} un do armazenamento.");
+                    
+                    if (metaAtingida)
+                    {
+                        _logger.Log("   ✅ O armazenamento foi suficiente para complementar.");
+                    }
+                }
+
                 if (!metaAtingida)
                 {
                     _logger.Log($"⚠️ Faltou energia para {cidade.Nome}!");
                     _logger.Log($"   🔸 Recebeu {veioDaGeracao:F2} un da geração.");
                     _logger.Log($"   🔸 Recebeu {veioDoArmazenamento:F2} un do armazenamento.");
-
-                    if (energiaNecessaria <= 0)
-                        _logger.Log("   ✅ O armazenamento foi suficiente para complementar.");
-                    else
-                        _logger.Log($"   ❌ Mesmo com armazenamento, faltaram {energiaNecessaria:F2} un.");
+                    _logger.Log($"   ❌ Mesmo com armazenamento, faltaram {energiaNecessaria:F2} un.");
                 }
+
             }
 
             _logger.LogFluxoEnergia(fluxo);

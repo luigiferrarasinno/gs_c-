@@ -13,3 +13,18 @@ C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\EnergyManager
 C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\EnergyManager.genruntimeconfig.cache
 C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\ref\EnergyManager.dll
 C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\EnergyManager.sourcelink.json
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\bin\Debug\net9.0\EnergyManager.exe
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\bin\Debug\net9.0\EnergyManager.deps.json
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\bin\Debug\net9.0\EnergyManager.runtimeconfig.json
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\bin\Debug\net9.0\EnergyManager.dll
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\bin\Debug\net9.0\EnergyManager.pdb
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.AssemblyInfoInputs.cache
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.AssemblyInfo.cs
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.csproj.CoreCompileInputs.cache
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.sourcelink.json
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.dll
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\refint\EnergyManager.dll
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.pdb
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\EnergyManager.genruntimeconfig.cache
+C:\Users\dolui\OneDrive\Documentos\meus testes\gs c\gs_c-\obj\Debug\net9.0\ref\EnergyManager.dll

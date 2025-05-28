@@ -8,19 +8,19 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ginno\\.nuget\\packages\\": {}
+    "C:\\Users\\dolui\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ginno\\OneDrive\\facul\\gs c#\\EnergyManager\\EnergyManager.csproj",
+      "projectUniqueName": "C:\\Users\\dolui\\OneDrive\\Documentos\\meus testes\\gs c\\gs_c-\\EnergyManager.csproj",
       "projectName": "EnergyManager",
-      "projectPath": "C:\\Users\\ginno\\OneDrive\\facul\\gs c#\\EnergyManager\\EnergyManager.csproj",
-      "packagesPath": "C:\\Users\\ginno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ginno\\OneDrive\\facul\\gs c#\\EnergyManager\\obj\\",
+      "projectPath": "C:\\Users\\dolui\\OneDrive\\Documentos\\meus testes\\gs c\\gs_c-\\EnergyManager.csproj",
+      "packagesPath": "C:\\Users\\dolui\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dolui\\OneDrive\\Documentos\\meus testes\\gs c\\gs_c-\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ginno\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\dolui\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -44,7 +44,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -65,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
