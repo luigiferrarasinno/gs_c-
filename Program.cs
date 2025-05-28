@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using EnergySimulator.Models;
@@ -27,6 +27,85 @@ namespace EnergySimulator
 
             var gerenciador = new GerenciadorEnergia(cidades, usinas, logger);
 
+            // Menu e Login obrigatório
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("=======================================");
+                Console.WriteLine("           Bem-vindo, usuário          ");
+                Console.WriteLine("=======================================");
+                Console.WriteLine("Digite 1 para logar:");
+
+                string entrada = Console.ReadLine();
+
+                if (entrada == "1")
+                {
+                    if (FazerLogin())
+                    {
+                        Console.WriteLine("\nLogin realizado com sucesso!");
+                        Thread.Sleep(1000);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nUsuário ou senha incorretos. Pressione qualquer tecla para tentar novamente.");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nOpção inválida. Você precisa digitar 1 para logar. Pressione qualquer tecla para tentar novamente.");
+                    Console.ReadKey();
+                }
+            }
+
+            // Menu principal pós-login
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("=======================================");
+                Console.WriteLine("             Menu Principal            ");
+                Console.WriteLine("=======================================");
+                Console.WriteLine("Digite:");
+                Console.WriteLine("1 - Simulação de Geração e Distribuição de Energia");
+                Console.WriteLine("2 - Em construção");
+                Console.WriteLine("3 - Em construção");
+                Console.WriteLine("4 - Em construção");
+                Console.WriteLine("5 - Em construção");
+                Console.WriteLine("0 - Sair");
+
+                string opcao = Console.ReadLine();
+
+                switch (opcao)
+                {
+                    case "1":
+                        // Começar simulação
+                        IniciarSimulacao(gerenciador);
+                        break;
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                        Console.WriteLine("Opção em construção. Pressione qualquer tecla para voltar ao menu.");
+                        Console.ReadKey();
+                        break;
+                    case "0":
+                        Console.WriteLine("Saindo do programa...");
+                        Thread.Sleep(1000);
+                        return; // sai do programa
+                    default:
+                        Console.WriteLine("Opção inválida. Pressione qualquer tecla para tentar novamente.");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+
+        static void IniciarSimulacao(GerenciadorEnergia gerenciador)
+        {
+            Console.Clear();
+            Console.WriteLine("Iniciando simulação... Pressione Ctrl+C para sair.\n");
+
             while (true)
             {
                 gerenciador.ExecutarRodada();
@@ -40,6 +119,42 @@ namespace EnergySimulator
 
                 Console.WriteLine();
             }
+        }
+
+        static bool FazerLogin()
+        {
+            Console.Write("Usuário: ");
+            string usuario = Console.ReadLine();
+
+            Console.Write("Senha: ");
+            string senha = LerSenha();
+
+            return usuario == "admin" && senha == "admin";
+        }
+
+        static string LerSenha()
+        {
+            string senha = "";
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    senha += key.KeyChar;
+                    Console.Write("*");
+                }
+                else if (key.Key == ConsoleKey.Backspace && senha.Length > 0)
+                {
+                    senha = senha.Substring(0, senha.Length - 1);
+                    Console.Write("\b \b");
+                }
+            } while (key.Key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+            return senha;
         }
     }
 }
