@@ -30,31 +30,39 @@ namespace EnergySimulator
             // Menu e Login obrigatório
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("=======================================");
-                Console.WriteLine("           Bem-vindo, usuário          ");
-                Console.WriteLine("=======================================");
-                Console.WriteLine("Digite 1 para logar:");
-
-                string entrada = Console.ReadLine();
-
-                if (entrada == "1")
+                try
                 {
-                    if (FazerLogin())
+                    Console.Clear();
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("           Bem-vindo, usuário          ");
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("Digite 1 para logar:");
+
+                    string entrada = Console.ReadLine()?.Trim();
+
+                    if (entrada == "1")
                     {
-                        Console.WriteLine("\nLogin realizado com sucesso!");
-                        Thread.Sleep(1000);
-                        break;
+                        if (FazerLogin())
+                        {
+                            Console.WriteLine("\nLogin realizado com sucesso!");
+                            Thread.Sleep(1000);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nUsuário ou senha incorretos. Pressione qualquer tecla para tentar novamente.");
+                            Console.ReadKey();
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("\nUsuário ou senha incorretos. Pressione qualquer tecla para tentar novamente.");
+                        Console.WriteLine("\nOpção inválida. Você precisa digitar 1 para logar. Pressione qualquer tecla para tentar novamente.");
                         Console.ReadKey();
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Console.WriteLine("\nOpção inválida. Você precisa digitar 1 para logar. Pressione qualquer tecla para tentar novamente.");
+                    Console.WriteLine($"\nErro inesperado: {ex.Message}. Pressione qualquer tecla para tentar novamente.");
                     Console.ReadKey();
                 }
             }
@@ -62,41 +70,48 @@ namespace EnergySimulator
             // Menu principal pós-login
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("=======================================");
-                Console.WriteLine("             Menu Principal            ");
-                Console.WriteLine("=======================================");
-                Console.WriteLine("Digite:");
-                Console.WriteLine("1 - Simulação de Geração e Distribuição de Energia");
-                Console.WriteLine("2 - Em construção");
-                Console.WriteLine("3 - Em construção");
-                Console.WriteLine("4 - Em construção");
-                Console.WriteLine("5 - Em construção");
-                Console.WriteLine("0 - Sair");
-
-                string opcao = Console.ReadLine();
-
-                switch (opcao)
+                try
                 {
-                    case "1":
-                        // Começar simulação
-                        IniciarSimulacao(gerenciador);
-                        break;
-                    case "2":
-                    case "3":
-                    case "4":
-                    case "5":
-                        Console.WriteLine("Opção em construção. Pressione qualquer tecla para voltar ao menu.");
-                        Console.ReadKey();
-                        break;
-                    case "0":
-                        Console.WriteLine("Saindo do programa...");
-                        Thread.Sleep(1000);
-                        return; // sai do programa
-                    default:
-                        Console.WriteLine("Opção inválida. Pressione qualquer tecla para tentar novamente.");
-                        Console.ReadKey();
-                        break;
+                    Console.Clear();
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("             Menu Principal            ");
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("Digite:");
+                    Console.WriteLine("1 - Simulação de Geração e Distribuição de Energia");
+                    Console.WriteLine("2 - Em construção");
+                    Console.WriteLine("3 - Em construção");
+                    Console.WriteLine("4 - Em construção");
+                    Console.WriteLine("5 - Em construção");
+                    Console.WriteLine("0 - Sair");
+
+                    string opcao = Console.ReadLine()?.Trim();
+
+                    switch (opcao)
+                    {
+                        case "1":
+                            IniciarSimulacao(gerenciador);
+                            break;
+                        case "2":
+                        case "3":
+                        case "4":
+                        case "5":
+                            Console.WriteLine("Opção em construção. Pressione qualquer tecla para voltar ao menu.");
+                            Console.ReadKey();
+                            break;
+                        case "0":
+                            Console.WriteLine("Saindo do programa...");
+                            Thread.Sleep(1000);
+                            return;
+                        default:
+                            Console.WriteLine("Opção inválida. Pressione qualquer tecla para tentar novamente.");
+                            Console.ReadKey();
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nErro inesperado: {ex.Message}. Pressione qualquer tecla para tentar novamente.");
+                    Console.ReadKey();
                 }
             }
         }
@@ -108,28 +123,44 @@ namespace EnergySimulator
 
             while (true)
             {
-                gerenciador.ExecutarRodada();
-
-                Console.WriteLine("\nPróxima rodada em 30 segundos. Pressione Ctrl+C para sair.\n");
-                for (int i = 30; i >= 1; i--)
+                try
                 {
-                    Console.Write($"\r⏳ {i} segundos... ");
-                    Thread.Sleep(1000);
-                }
+                    gerenciador.ExecutarRodada();
 
-                Console.WriteLine();
+                    Console.WriteLine("\nPróxima rodada em 30 segundos. Pressione Ctrl+C para sair.\n");
+                    for (int i = 30; i >= 1; i--)
+                    {
+                        Console.Write($"\r⏳ {i} segundos... ");
+                        Thread.Sleep(1000);
+                    }
+
+                    Console.WriteLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nErro durante simulação: {ex.Message}. Pressione qualquer tecla para continuar.");
+                    Console.ReadKey();
+                }
             }
         }
 
         static bool FazerLogin()
         {
-            Console.Write("Usuário: ");
-            string usuario = Console.ReadLine();
+            try
+            {
+                Console.Write("Usuário: ");
+                string usuario = Console.ReadLine()?.Trim();
 
-            Console.Write("Senha: ");
-            string senha = LerSenha();
+                Console.Write("Senha: ");
+                string senha = LerSenha();
 
-            return usuario == "admin" && senha == "admin";
+                return usuario == "admin" && senha == "admin";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nErro ao tentar fazer login: {ex.Message}");
+                return false;
+            }
         }
 
         static string LerSenha()

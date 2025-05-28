@@ -20,7 +20,7 @@ namespace EnergySimulator.Services
             _cidades = cidades;
             _usinas = usinas;
             _logger = logger;
-            _energiaArmazenada = 100;
+            _energiaArmazenada = 200;
         }
 
         public void ExecutarRodada()
