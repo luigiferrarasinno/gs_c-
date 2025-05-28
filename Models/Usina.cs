@@ -1,37 +1,30 @@
-namespace EnergySimulator.Models;
-
-public class Usina
+namespace EnergySimulator.Models
 {
-    public string Nome { get; set; }
-    public double CapacidadeMinima { get; set; }
-    public double CapacidadeMaxima { get; set; }
-    public double EnergiaGerada { get; set; }
-    public double ReducaoPercentual { get; private set; } = 0;
-
-    public Usina(string nome, double capacidadeMinima, double capacidadeMaxima)
+    public class Usina
     {
-        Nome = nome;
-        CapacidadeMinima = capacidadeMinima;
-        CapacidadeMaxima = capacidadeMaxima;
-        EnergiaGerada = capacidadeMaxima;  // Inicializa gerando no máximo
-    }
+        public string Nome { get; set; }
+        public double GeracaoAtual { get; private set; }
+        private Random _rnd;
 
-    // Simula geração de energia entre capacidade mínima e máxima
-    public void SimularGeracaoRandomica(Random random)
-    {
-        EnergiaGerada = CapacidadeMinima + random.NextDouble() * (CapacidadeMaxima - CapacidadeMinima);
-        EnergiaGerada *= (1 - ReducaoPercentual);
-    }
+        public Usina(string nome)
+        {
+            Nome = nome;
+            _rnd = new Random(nome.GetHashCode() + DateTime.Now.Millisecond);
+            AtualizarGeracao();
+        }
 
-    public void ReduzirGeracao(double percentual)
-    {
-        ReducaoPercentual = percentual;
-        EnergiaGerada = EnergiaGerada * (1 - percentual);
-    }
+        // Geração variável por rodada, ex: entre 100 e 200
+        public void AtualizarGeracao()
+        {
+            GeracaoAtual = _rnd.NextDouble() * 100 + 100; // Geração entre 100 e 200
+        }
 
-    public void RestaurarGeracao()
-    {
-        ReducaoPercentual = 0;
-        EnergiaGerada = CapacidadeMaxima;
+        // Envia energia para a cidade (limitado pela geração atual)
+        public double EnviarEnergia(double quantidade)
+        {
+            double energiaEnviada = quantidade > GeracaoAtual ? GeracaoAtual : quantidade;
+            GeracaoAtual -= energiaEnviada;
+            return energiaEnviada;
+        }
     }
 }

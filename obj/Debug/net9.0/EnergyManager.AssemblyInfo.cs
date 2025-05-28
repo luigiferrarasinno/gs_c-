@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnergyManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59236c4b84bc117524fbbb664a63f81d3851067e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17c7e92dd5e660ccf8d926f561ca573a978cb7fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnergyManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnergyManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
