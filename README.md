@@ -192,7 +192,6 @@ EnergySimulator/
 
 ---
 
-## Fluxogramas Sugeridos
 
 ### Fluxograma 1: Processo de Login
 
@@ -231,8 +230,6 @@ EnergySimulator/
 9. Repetir rodada
 
 ---
-
-Esses fluxogramas podem ser criados em ferramentas como Draw\.io, Lucidchart, Visio ou até em papel para visualização.
 
 ---
 
