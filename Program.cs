@@ -23,50 +23,49 @@ class Program
             new Usina("Belo Monte", 1100, 1300)
         };
 
+        var gerenciador = new GerenciadorEnergia();
         var simulador = new Simulador();
         var log = new LogOperacoes();
 
-        double energiaArmazenada = 0;
+        int horaDoDia = 0;
         int rodada = 0;
 
-        Console.WriteLine("⚡ Simulação iniciada! Pressione CTRL+C para sair.\n");
+        Console.WriteLine("Simulação iniciada! Pressione CTRL+C para sair.\n");
 
         while (true)
         {
             rodada++;
-            int horaDoDia = rodada % 24;
+            horaDoDia = rodada % 24;
 
-            Console.WriteLine($"\n🕑 Hora: {horaDoDia}h | 🔄 Rodada: {rodada}");
+            // 1. Simular falhas nas usinas
+            gerenciador.SimularFalhasUsinas(usinas);
 
-            // 1️⃣ Simular falhas nas usinas
-            simulador.SimularFalhasUsinas(usinas);
-
-            // 2️⃣ Simular geração das usinas no horário atual
+            // 2. Simular geração das usinas no horário atual
             simulador.SimularGeracao(usinas, horaDoDia);
 
-            // 3️⃣ Obter energia total gerada
+            // 3. Obter energia total gerada
             double energiaGerada = simulador.ObterEnergiaTotal(usinas);
 
-            // 4️⃣ Simular consumo das cidades no horário atual
+            // 4. Simular consumo das cidades no horário
             simulador.SimularConsumo(cidades, horaDoDia);
 
-            // 5️⃣ Log da energia antes da distribuição
-            log.RegistrarEnergiaAntes(energiaArmazenada);
+            // 5. Log energia armazenada antes da rodada
+            log.RegistrarEnergiaAntes(gerenciador.EnergiaArmazenada);
             log.RegistrarEnergiaGerada(energiaGerada);
 
-            // 6️⃣ Distribuir energia e atualizar armazenamento
-            energiaArmazenada = simulador.DistribuirEnergia(
-                cidades,
-                energiaGerada,
-                energiaArmazenada,
-                log
-            );
+            // 6. Distribuir energia gerada entre cidades
+            gerenciador.DistribuirEnergia(cidades, energiaGerada);
 
-            // 7️⃣ Mostrar logs e histórico
-            log.MostrarLog(cidades, energiaArmazenada, rodada);
+            // 7. Redistribuir energia armazenada para cidades com déficit
+            gerenciador.RedistribuirEnergia(cidades, log);
 
-            // 8️⃣ Aguarda próxima rodada
-            Thread.Sleep(30000); // 30 segundos por rodada
+            // 8. Armazenar excedentes das cidades
+            gerenciador.ArmazenarExcedentes(cidades, log);
+
+            // 9. Mostrar logs com histórico
+            log.MostrarLog(cidades, gerenciador.EnergiaArmazenada, rodada);
+
+            Thread.Sleep(3000); // 3 segundos por rodada
         }
     }
 }

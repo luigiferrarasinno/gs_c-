@@ -12,3 +12,4 @@ C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\refint\Energy
 C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\EnergyManager.pdb
 C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\EnergyManager.genruntimeconfig.cache
 C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\ref\EnergyManager.dll
+C:\Users\ginno\OneDrive\facul\gs c#\EnergyManager\obj\Debug\net9.0\EnergyManager.sourcelink.json
