@@ -34,7 +34,8 @@ EnergySimulator/
 ├── Models/
 │   ├── Cidade.cs          # Representa uma cidade, com nome e meta de energia
 │   ├── Usina.cs           # Representa uma usina geradora de energia
-│
+│   ├── Armazenador.cs     # Representa o armazenamento de energia 
+│ 
 ├── Services/
 │   ├── GerenciadorEnergia.cs  # Lógica central do simulador: geração, distribuição e armazenamento
 │
