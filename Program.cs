@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using EnergySimulator.Models;
@@ -10,6 +10,8 @@ namespace EnergySimulator
     {
         static void Main(string[] args)
         {
+            var logger = new Logger();
+
             var cidades = new List<Cidade>
             {
                 new Cidade("São Paulo"),
@@ -23,22 +25,20 @@ namespace EnergySimulator
                 new Usina("Usina Hidrelétrica 2")
             };
 
-            var armazenamento = new Armazenamento();
-            var logger = new Logger();
-            var gerenciador = new GerenciadorEnergia(cidades, usinas, armazenamento, logger);
+            var gerenciador = new GerenciadorEnergia(cidades, usinas, logger);
 
             while (true)
             {
-                gerenciador.Rodar();
+                gerenciador.ExecutarRodada();
 
-                Console.WriteLine();
-                Console.WriteLine("Próxima rodada em 30 segundos. Pressione Ctrl+C para sair.");
-
-                for (int i = 30; i > 0; i--)
+                Console.WriteLine("\nPróxima rodada em 30 segundos. Pressione Ctrl+C para sair.\n");
+                for (int i = 30; i >= 1; i--)
                 {
-                    Console.Write($"\rPróxima rodada em {i} segundos... ");
+                    Console.Write($"\r⏳ {i} segundos... ");
                     Thread.Sleep(1000);
                 }
+
+                Console.WriteLine();
             }
         }
     }

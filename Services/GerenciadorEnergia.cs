@@ -1,115 +1,161 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using EnergySimulator.Models;
 
 namespace EnergySimulator.Services
 {
     public class GerenciadorEnergia
     {
-        public List<Cidade> Cidades { get; private set; }
-        public List<Usina> Usinas { get; private set; }
-        public Armazenamento Armazenamento { get; private set; }
-        private Logger _logger;
-        private int rodada;
+        private readonly List<Cidade> _cidades;
+        private readonly List<Usina> _usinas;
+        private readonly Logger _logger;
+        private double _energiaArmazenada;
+        private const double CapacidadeMaximaArmazenamento = 500;
+        private int _rodada = 1;
+        private readonly Random _random = new Random();
 
-        public GerenciadorEnergia(List<Cidade> cidades, List<Usina> usinas, Armazenamento armazenamento, Logger logger)
+        public GerenciadorEnergia(List<Cidade> cidades, List<Usina> usinas, Logger logger)
         {
-            Cidades = cidades;
-            Usinas = usinas;
-            Armazenamento = armazenamento;
+            _cidades = cidades;
+            _usinas = usinas;
             _logger = logger;
-            rodada = 0;
+            _energiaArmazenada = 0;
         }
 
-        public void Rodar()
+        public void ExecutarRodada()
         {
-            rodada++;
+            double energiaArmazenadaInicio = _energiaArmazenada;
 
-            Console.Clear();
             _logger.LogLinhaSeparadora();
-            _logger.LogMensagemCentralizada($"RODADA {rodada}");
+            _logger.LogMensagemCentralizada($"RODADA {_rodada}");
             _logger.LogLinhaSeparadora();
 
-            // Atualizar metas e gerações
-            foreach (var c in Cidades)
-                c.AtualizarMeta();
-            foreach (var u in Usinas)
-                u.AtualizarGeracao();
+            // Verificar crise
+            bool temCrise = _rodada % 2 == 0;
+            bool criseNaGeracao = false;
+            bool criseNaDemanda = false;
 
-            var metas = new List<(string, double)>();
-            foreach (var c in Cidades)
-                metas.Add((c.Nome, c.MetaEnergia));
-            _logger.LogMetasCidades(metas);
-
-            var geracoes = new List<(string, double)>();
-            foreach (var u in Usinas)
-                geracoes.Add((u.Nome, u.GeracaoAtual));
-            _logger.LogGeracaoUsinas(geracoes);
-
-            // Estatísticas gerais
-            double metaTotal = Cidades.Sum(c => c.MetaEnergia);
-            double geradoTotal = Usinas.Sum(u => u.GeracaoAtual);
-            double enviadoTotal = 0;
-            double deficitTotal = 0;
-            double armazenamentoAntes = Armazenamento.EnergiaArmazenada;
-
-            foreach (var c in Cidades)
-                c.ResetEnergiaRecebida();
-
-            var fluxo = new List<(string cidade, double meta, double recebida, double deficit)>();
-
-            foreach (var cidade in Cidades)
+            if (temCrise)
             {
-                double energiaNecessaria = cidade.MetaEnergia;
-                double energiaFornecida = 0;
+                criseNaGeracao = _random.Next(0, 2) == 1;
+                criseNaDemanda = _random.Next(0, 2) == 1;
 
-                foreach (var usina in Usinas)
-                {
-                    if (energiaNecessaria <= 0) break;
-
-                    double enviada = usina.EnviarEnergia(energiaNecessaria);
-                    energiaNecessaria -= enviada;
-                    energiaFornecida += enviada;
-                }
-
-                if (energiaNecessaria > 0)
-                {
-                    double usada = Armazenamento.UsarEnergia(energiaNecessaria);
-                    energiaFornecida += usada;
-                    energiaNecessaria -= usada;
-                }
-
-                cidade.ReceberEnergia(energiaFornecida);
-                enviadoTotal += energiaFornecida;
-
-                double deficitCidade = energiaNecessaria > 0 ? energiaNecessaria : 0;
-                deficitTotal += deficitCidade;
-
-                fluxo.Add((cidade.Nome, cidade.MetaEnergia, cidade.EnergiaRecebida, deficitCidade));
+                if (!criseNaGeracao && !criseNaDemanda)
+                    criseNaGeracao = true;
             }
 
-            // Energia sobrando das usinas para armazenamento
-            double sobraTotal = Usinas.Sum(u => u.GeracaoAtual);
-            if (sobraTotal > 0)
+            // Gerar metas das cidades
+            foreach (var cidade in _cidades)
             {
-                Armazenamento.Armazenar(sobraTotal);
+                double metaBase = _random.NextDouble() * (120 - 80) + 80;
+                cidade.MetaEnergia = criseNaDemanda
+                    ? metaBase * (_random.NextDouble() * (1.5 - 1.2) + 1.2)
+                    : metaBase;
+            }
+
+            double totalMetaCidades = _cidades.Sum(c => c.MetaEnergia);
+            _logger.LogLista("Metas das Cidades", _cidades.Select(c => (c.Nome, c.MetaEnergia)).ToList(), "un");
+            _logger.Log($"🔢 Total de energia demandada pelas cidades: {totalMetaCidades:F2} un");
+
+            // Gerar energia das usinas
+            foreach (var usina in _usinas)
+            {
+                double geracaoBase = _random.NextDouble() * (200 - 150) + 150;
+                usina.Geracao = criseNaGeracao
+                    ? geracaoBase * (_random.NextDouble() * (0.7 - 0.5) + 0.5)
+                    : geracaoBase;
+            }
+
+            double totalGerado = _usinas.Sum(u => u.Geracao);
+
+            _logger.LogLista("Geração das Usinas", _usinas.Select(u => (u.Nome, u.Geracao)).ToList(), "un");
+            _logger.Log($"⚡ Total gerado: {totalGerado:F2} un");
+
+            // ===========================
+            // Distribuição de Energia
+            // ===========================
+            double energiaGeradaDisponivel = totalGerado;
+            double energiaArmazenadaDisponivel = _energiaArmazenada;
+
+            var fluxo = new List<(string cidade, double meta, double recebida, bool metaAtingida)>();
+
+            foreach (var cidade in _cidades)
+            {
+                double energiaNecessaria = cidade.MetaEnergia;
+                double energiaEntregue = 0;
+                double veioDaGeracao = 0;
+                double veioDoArmazenamento = 0;
+
+                // Usa geração primeiro
+                if (energiaGeradaDisponivel >= energiaNecessaria)
+                {
+                    veioDaGeracao = energiaNecessaria;
+                    energiaEntregue = energiaNecessaria;
+                    energiaGeradaDisponivel -= energiaNecessaria;
+                }
+                else
+                {
+                    veioDaGeracao = energiaGeradaDisponivel;
+                    energiaEntregue = energiaGeradaDisponivel;
+                    energiaNecessaria -= energiaGeradaDisponivel;
+                    energiaGeradaDisponivel = 0;
+
+                    // Complementa com armazenamento
+                    if (energiaArmazenadaDisponivel >= energiaNecessaria)
+                    {
+                        veioDoArmazenamento = energiaNecessaria;
+                        energiaEntregue += energiaNecessaria;
+                        energiaArmazenadaDisponivel -= energiaNecessaria;
+                        energiaNecessaria = 0;
+                    }
+                    else
+                    {
+                        veioDoArmazenamento = energiaArmazenadaDisponivel;
+                        energiaEntregue += energiaArmazenadaDisponivel;
+                        energiaNecessaria -= energiaArmazenadaDisponivel;
+                        energiaArmazenadaDisponivel = 0;
+                    }
+                }
+
+                bool metaAtingida = energiaEntregue >= cidade.MetaEnergia;
+                fluxo.Add((cidade.Nome, cidade.MetaEnergia, energiaEntregue, metaAtingida));
+
+                if (!metaAtingida)
+                {
+                    _logger.Log($"⚠️ Faltou energia para {cidade.Nome}!");
+                    _logger.Log($"   🔸 Recebeu {veioDaGeracao:F2} un da geração.");
+                    _logger.Log($"   🔸 Recebeu {veioDoArmazenamento:F2} un do armazenamento.");
+
+                    if (energiaNecessaria <= 0)
+                        _logger.Log("   ✅ O armazenamento foi suficiente para complementar.");
+                    else
+                        _logger.Log($"   ❌ Mesmo com armazenamento, faltaram {energiaNecessaria:F2} un.");
+                }
             }
 
             _logger.LogFluxoEnergia(fluxo);
 
-            _logger.LogStatusGeral(
-                metaTotal,
-                geradoTotal,
-                enviadoTotal,
-                deficitTotal,
-                armazenamentoAntes,
-                Armazenamento.EnergiaArmazenada
-            );
+            // ===========================
+            // Atualização do Armazenamento
+            // ===========================
+            double sobra = energiaGeradaDisponivel;
 
-            _logger.LogEnergiaArmazenada(Armazenamento.EnergiaArmazenada);
+            if (sobra > 0)
+            {
+                double espacoDisponivel = CapacidadeMaximaArmazenamento - energiaArmazenadaDisponivel;
+                double energiaParaArmazenar = Math.Min(sobra, espacoDisponivel);
+                energiaArmazenadaDisponivel += energiaParaArmazenar;
+            }
+
+            _energiaArmazenada = energiaArmazenadaDisponivel;
+
+            _logger.LogLinhaSeparadora();
+            _logger.Log($"🔋 Energia armazenada no início da rodada: {energiaArmazenadaInicio:F2} un");
+            _logger.Log($"🔋 Energia armazenada no final da rodada: {_energiaArmazenada:F2} un");
+            _logger.LogLinhaSeparadora();
+
+            _rodada++;
         }
-
-
-       
     }
 }
