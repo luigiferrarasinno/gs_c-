@@ -38,8 +38,6 @@ EnergySimulator/
 │ 
 ├── Services/
 │   ├── GerenciadorEnergia.cs  # Lógica central do simulador: geração, distribuição e armazenamento
-│
-├── Utilities/
 │   ├── Logger.cs          # Responsável por registrar e formatar logs do sistema
 │
 ├── Program.cs             # Ponto de entrada do programa, implementa login, menu e inicia simulação
@@ -77,7 +75,6 @@ EnergySimulator/
   * Gestão das rodadas, aplicando crises a cada duas rodadas.
   * Registro dos eventos e status via Logger.
 
-### Utilities
 
 * **Logger.cs**
   Fornece métodos para:
