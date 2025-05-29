@@ -232,6 +232,9 @@ EnergySimulator/
 8. Aguardar intervalo
 9. Repetir rodada
 
+![image](https://github.com/user-attachments/assets/8f62a5b4-6f87-4d05-a893-3c992432f071)
+
+
 ---
 
 ---
