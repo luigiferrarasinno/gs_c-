@@ -205,6 +205,8 @@ EnergySimulator/
 7. Se inválidas → Mostrar erro e voltar ao menu
 8. Se válidas → Prosseguir para menu principal
 
+![image](https://github.com/user-attachments/assets/dcab9f6f-8c00-4b00-b9f0-baf8c7a05127)
+
 ---
 
 ### Fluxograma 2: Menu Principal
