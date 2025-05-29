@@ -196,15 +196,6 @@ EnergySimulator/
 
 ### Fluxograma 1: Processo de Login
 
-1. Início
-2. Exibir menu "Digite 1 para logar"
-3. Usuário digita opção
-4. Se opção ≠ 1 → Mostrar erro e voltar ao menu
-5. Se opção = 1 → Pedir usuário e senha
-6. Verificar credenciais
-7. Se inválidas → Mostrar erro e voltar ao menu
-8. Se válidas → Prosseguir para menu principal
-
 ![image](https://github.com/user-attachments/assets/dcab9f6f-8c00-4b00-b9f0-baf8c7a05127)
 
 ---
@@ -222,18 +213,7 @@ EnergySimulator/
 
 ### Fluxograma 3: Simulação - Rodada de Energia
 
-1. Início da rodada
-2. Gerar energia nas usinas (considerando crise)
-3. Definir metas das cidades (considerando crise)
-4. Distribuir energia gerada para cidades
-5. Usar energia armazenada para déficit, se necessário
-6. Atualizar armazenamento com sobra
-7. Logar resultados
-8. Aguardar intervalo
-9. Repetir rodada
-
 ![image](https://github.com/user-attachments/assets/8f62a5b4-6f87-4d05-a893-3c992432f071)
-
 
 ---
 
