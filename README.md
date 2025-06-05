@@ -197,18 +197,8 @@ EnergySimulator/
 
 ---
 
-### Fluxograma 2: Menu Principal
 
-1. Exibir menu principal com opções 1 a 5 e 0 para sair
-2. Usuário escolhe opção
-3. Se opção = 1 → Iniciar simulação
-4. Se opção = 0 → Encerrar programa
-5. Se opção ∈ {2,3,4,5} → Mostrar "Em construção" e voltar ao menu
-6. Se opção inválida → Mostrar erro e voltar ao menu
-
----
-
-### Fluxograma 3: Simulação - Rodada de Energia
+### Fluxograma 2: Simulação - Rodada de Energia
 
 ![image](https://github.com/user-attachments/assets/8f62a5b4-6f87-4d05-a893-3c992432f071)
 
