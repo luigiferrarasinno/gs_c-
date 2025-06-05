@@ -228,7 +228,7 @@ EnergySimulator/
 
 ## Considerações Finais
 
-Este projeto foi desenvolvido por **Luigi** com o intuito de explorar conceitos de sistemas energéticos, simulação de processos reais e gerenciamento de crises energéticas em ambientes controlados. A arquitetura modular e os logs detalhados facilitam a expansão futura, como inclusão de mais cidades, usinas, diferentes tipos de energia, e análises mais complexas. A adição do sistema de login e menu permite um fluxo mais controlado e preparado para futuras funcionalidades.
+Este projeto foi desenvolvido por **Luigi** e **Caua** com o intuito de explorar conceitos de sistemas energéticos, simulação de processos reais e gerenciamento de crises energéticas em ambientes controlados. A arquitetura modular e os logs detalhados facilitam a expansão futura, como inclusão de mais cidades, usinas, diferentes tipos de energia, e análises mais complexas. A adição do sistema de login e menu permite um fluxo mais controlado e preparado para futuras funcionalidades.
 
 
 ## 👥 Autores
