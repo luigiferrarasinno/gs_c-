@@ -46,6 +46,26 @@ EnergySimulator/
 
 ---
 
+## 🔐 Como Fazer Login
+
+Ao executar o programa, será exibida uma tela de login que impede o acesso às funcionalidades até que o usuário insira as credenciais corretas.
+
+### ✅ **Credenciais padrão:**
+
+* **Usuário:** `admin`
+* **Senha:** `admin`
+
+### 💡 **Passo a passo:**
+
+1. Quando solicitado, digite `admin` no campo de **Usuário** e pressione **Enter**.
+2. Depois, digite `admin` no campo de **Senha** e pressione **Enter**.
+3. Se as credenciais estiverem corretas, o sistema exibirá o **menu principal** com as opções disponíveis.
+
+Se as credenciais forem digitadas incorretamente, o sistema exibirá uma mensagem de erro e solicitará novamente o usuário e a senha até que sejam inseridos corretamente.
+
+---
+
+
 ## Explicação dos Arquivos
 
 ### Models
