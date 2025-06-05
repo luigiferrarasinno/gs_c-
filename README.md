@@ -139,47 +139,6 @@ EnergySimulator/
 * Caso a opção escolhida seja inválida, pede para escolher uma válida.
 * A simulação roda indefinidamente, com rodadas periódicas, até o usuário interromper manualmente.
 
----
-
-## Requisitos Funcionais
-
-| Código | Descrição                                                                           |
-| ------ | ----------------------------------------------------------------------------------- |
-| RF01   | O sistema deve obrigar o usuário a realizar login antes de acessar a simulação.     |
-| RF02   | O sistema deve validar usuário e senha fixos: "admin" / "admin".                    |
-| RF03   | Após login, o sistema deve apresentar um menu com 5 opções, sendo apenas a 1 ativa. |
-| RF04   | O sistema deve iniciar a simulação quando o usuário escolher a opção 1 no menu.     |
-| RF05   | A simulação deve executar rodadas periódicas, exibindo logs detalhados no console.  |
-| RF06   | O sistema deve mostrar mensagem "Em construção" para opções 2 a 5 do menu.          |
-| RF07   | O sistema deve permitir sair do programa a partir da opção 0 no menu.               |
-
----
-
-## Requisitos Não Funcionais
-
-| Código | Descrição                                                                             |
-| ------ | ------------------------------------------------------------------------------------- |
-| RNF01  | O sistema deve ser desenvolvido em C# utilizando o .NET SDK.                          |
-| RNF02  | O sistema deve ter interface de console simples e clara.                              |
-| RNF03  | O sistema deve possuir código modular, com classes separadas para entidades e lógica. |
-| RNF04  | O sistema deve garantir que as senhas digitadas não sejam exibidas em texto claro.    |
-| RNF05  | O sistema deve possuir logs formatados para facilitar o entendimento das simulações.  |
-| RNF06  | O sistema deve ser executado em ambiente local via terminal/console.                  |
-
----
-
-## Regras de Negócio
-
-* O usuário deve obrigatoriamente logar para acessar o menu.
-* Apenas o usuário "admin" com senha "admin" é válido.
-* A simulação é iniciada somente após a seleção da opção 1 no menu.
-* A simulação funciona em rodadas infinitas até interrupção manual.
-* As crises energéticas ocorrem a cada 2 rodadas e impactam geração e demanda.
-* A energia armazenada nunca pode exceder 500 unidades nem ser negativa.
-* Opções do menu que não estejam implementadas exibem mensagem "Em construção".
-* O programa pode ser encerrado pelo usuário via menu (opção 0) ou via Ctrl+C durante a simulação.
-
----
 
 ## Tecnologias Utilizadas
 
@@ -190,21 +149,6 @@ EnergySimulator/
 
 ---
 
-
-### Fluxograma 1: Processo de Login
-
-![image](https://github.com/user-attachments/assets/dcab9f6f-8c00-4b00-b9f0-baf8c7a05127)
-
----
-
-
-### Fluxograma 2: Simulação - Rodada de Energia
-
-![image](https://github.com/user-attachments/assets/8f62a5b4-6f87-4d05-a893-3c992432f071)
-
----
-
----
 
 ## Como Rodar
 
