@@ -1,5 +1,5 @@
 
-# EnergySimulator
+# EnergyManager Simulator
 
 > **Projeto desenvolvido por Luigi e Caua**
 > Simulador de geração, distribuição e armazenamento de energia elétrica para cidades, considerando crises energéticas e limites de armazenamento, com interface de login e menu interativo.
