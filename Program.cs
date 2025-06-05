@@ -78,10 +78,6 @@ namespace EnergySimulator
                     Console.WriteLine("=======================================");
                     Console.WriteLine("Digite:");
                     Console.WriteLine("1 - Simulação de Geração e Distribuição de Energia");
-                    Console.WriteLine("2 - Em construção");
-                    Console.WriteLine("3 - Em construção");
-                    Console.WriteLine("4 - Em construção");
-                    Console.WriteLine("5 - Em construção");
                     Console.WriteLine("0 - Sair");
 
                     string opcao = Console.ReadLine()?.Trim();
@@ -90,13 +86,6 @@ namespace EnergySimulator
                     {
                         case "1":
                             IniciarSimulacao(gerenciador);
-                            break;
-                        case "2":
-                        case "3":
-                        case "4":
-                        case "5":
-                            Console.WriteLine("Opção em construção. Pressione qualquer tecla para voltar ao menu.");
-                            Console.ReadKey();
                             break;
                         case "0":
                             Console.WriteLine("Saindo do programa...");

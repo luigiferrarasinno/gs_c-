@@ -1,14 +1,14 @@
 
 # EnergySimulator
 
-> **Projeto desenvolvido por Luig**
+> **Projeto desenvolvido por Luigi e Caua**
 > Simulador de geração, distribuição e armazenamento de energia elétrica para cidades, considerando crises energéticas e limites de armazenamento, com interface de login e menu interativo.
 
 ---
 
 ## Descrição do Projeto
 
-O **EnergySimulator** é um sistema em C# que simula o fluxo de energia elétrica entre usinas geradoras e cidades consumidoras, incluindo um sistema de armazenamento de energia para garantir o fornecimento mesmo em momentos de crise, quando a geração pode ser insuficiente. O projeto visa analisar como diferentes situações de demanda, oferta e crise impactam o sistema de energia, com logs detalhados para monitorar cada passo. Agora conta com um sistema simples de login obrigatório e menu interativo para iniciar a simulação.
+O **EnergySimulator** é um sistema em C# que simula o fluxo de energia elétrica entre usinas geradoras e cidades consumidoras, incluindo um sistema de armazenamento de energia para garantir o fornecimento mesmo em momentos de crise, quando a geração pode ser insuficiente. O projeto visa analisar como diferentes situações de demanda, oferta e crise impactam o sistema de energia, com logs detalhados para monitorar cada passo. Agora conta com um sistema simples de login obrigatório e menu interativo para iniciar a simulação. ALem disso a simulação é feita por rodadas que simula um periodo de tempo na vida real, podendo ser um mes, uma semana ou ate mesmo um dia 
 
 ---
 
@@ -240,3 +240,12 @@ EnergySimulator/
 
 Este projeto foi desenvolvido por **Luigi** com o intuito de explorar conceitos de sistemas energéticos, simulação de processos reais e gerenciamento de crises energéticas em ambientes controlados. A arquitetura modular e os logs detalhados facilitam a expansão futura, como inclusão de mais cidades, usinas, diferentes tipos de energia, e análises mais complexas. A adição do sistema de login e menu permite um fluxo mais controlado e preparado para futuras funcionalidades.
 
+
+## 👥 Autores
+
+Este projeto foi desenvolvido por:
+
+- [Luigi Ferrara Sinno](https://github.com/luigiferrarasinno) — RM 98047  
+- [Caua de Jesus](https://github.com/dejesuscaua) — RM 97648
+
+🔗 Repositório no GitHub: [gs-c#](https://github.com/luigiferrarasinno/gs_c-.git)
