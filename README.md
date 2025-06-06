@@ -154,7 +154,6 @@ Se as credenciais forem digitadas incorretamente, o sistema exibirá uma mensage
 * Após login válido, o sistema mostra um menu com opções:
 
   * 1 para iniciar a simulação.
-  * 2, 3, 4, 5 opções "em construção".
   * 0 para sair do programa.
 * Caso a opção escolhida seja inválida, pede para escolher uma válida.
 * A simulação roda indefinidamente, com rodadas periódicas, até o usuário interromper manualmente.
